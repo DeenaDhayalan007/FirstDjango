@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload{% endblock title %}
+
+{% block content %}
+
+<style>
+  #mymodal
+{
+    height: 400px !important;
+    top: 200px !important;
+    font-size: 20px !important;
+}
+
+ul li {
+    margin: 0 0 10px 0;
+}
+
+.ui.button {
+width: 200px;
+border-radius: 0px !important;
+}
+
+.block-center{
+  text-align: center !important;
+}
+</style>
+
+{% if sucess_message %}
+
+<div class="alert alert-success alert-dismissible fade in">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{ sucess_message }}</strong> 
+</div>
+
+{% endif %}
+
+{% if error_message %}
+
+<div class="alert alert-danger alert-dismissible fade in">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{ error_message }}</strong> 
+</div>
+
+{% endif %}
+
+
+  <h1>Upload File</h1>
+
+  <form action="" method="POST" enctype="multipart/form-data" class="ui form">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="ui positive button mtop">Add data</button>
+  </form>
+
+{% endblock content %}

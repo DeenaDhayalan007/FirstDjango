@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Performance{% endblock title %}
+
+{% block content %}
+
+<style>
+#mymodal
+{
+    height: 400px !important;
+    top: 200px !important;
+    font-size: 20px !important;
+}
+
+ul li {
+    margin: 0 0 10px 0;
+}
+
+.ui.button {
+width: 200px;
+border-radius: 0px !important;
+}
+
+.block-center{
+  text-align: center !important;
+}
+</style>
+
+<div class="container">
+  
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><h1>Price data</h1></h4>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li><strong>Count: </strong> {{ price.count }}</li>
+            <li><strong>Mean: </strong> {{ price.mean }}</li>
+            <li><strong>Median: </strong> {{ price.median }}</li>
+            <li><strong>Min: </strong> {{ price.min }}</li>
+            <li><strong>Max: </strong> {{ price.max }}</li>
+            <li><strong>Std dev: </strong> {{ price.std|floatformat }}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+ <div class="block-center">
+   {% if error_message %}
+
+   <div class="alert alert-danger alert-dismissible fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{ error_message }}</strong> 
+  </div>
+
+  
+        
+    {% endif %}
+
+    {% if request.POST %}
+      {% if graph %}
+        <img src="data:image/png;base64, {{ graph | safe}}" width="auto" >
+        <br>
+        <br>
+      {% endif %}
+    {% endif %}
+    </div>
+    <form action="" method="POST" class="ui form">
+        {% csrf_token %}
+      
+      
+
+      <select class="ui search dropdown" name="sales" >
+        <option value="" disabled selected> Chart Type</option>
+        <option value="Barplot">Bar plot</option>
+        <option value="Lineplot">Line plot</option>
+        <option value="CountPlot">Count plot</option>
+      </select>
+
+        <div class="field">
+            <div class="two fields">
+              <div class="field">
+                  <label for="Date from:">Date from:</label>
+                  
+                <input type="date" name="date_from" >
+              </div>
+              <div class="field">
+                <label for="Date To:">Date To:</label>
+                <input type="date" name="date_to">
+              </div>
+            </div>
+          </div>
+          
+ <div class="block-center">
+          <button class="ui primary button" type="submit">Select</button>
+          </div>
+    </form>
+
+    <div class="block-center">
+    <button type="button" class="ui secondary button" data-toggle="modal" data-target="#myModal">See Summary</button>
+    <br>
+    <a href={% url 'products:add_purchase' %}>
+      <button class="ui positive button">Add records</button>
+    </a>
+    
+    </div>
+
+{% endblock content %}

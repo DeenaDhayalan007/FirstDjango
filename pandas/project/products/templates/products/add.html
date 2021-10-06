@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Add purchase {% endblock title %}
+
+{% block content %} 
+
+<style>
+    .mtop {
+        margin-top: 10px !important;
+    }
+</style>
+
+{% if added_message %}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> {{ added_message }}
+  </div>
+{% endif %}
+
+
+
+<form action="" method="POST" class="ui form">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="ui positive button mtop">Add Sales data</button>
+</form>
+
+{% endblock content%}
